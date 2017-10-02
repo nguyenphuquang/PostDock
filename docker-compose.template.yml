@@ -154,7 +154,7 @@ services:
                 aliases:
                     - pgslave3
 #end if
-#if $pgslave3_ip == $ip
+#if $pgslave4_ip == $ip
     pgslave4:
         build:
             context: .
@@ -217,13 +217,13 @@ volumes:
 #if $pgslave1_ip == $ip
     pgslave1:
 #end if
-#if $pgslave1_ip == $ip
+#if $pgslave2_ip == $ip
     pgslave2:
 #end if
-#if $pgslave1_ip == $ip
+#if $pgslave3_ip == $ip
     pgslave3:
 #end if
-#if $pgslave1_ip == $ip
+#if $pgslave4_ip == $ip
     pgslave4:
 #end if
 #if $backup_ip == $ip
