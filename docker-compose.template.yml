@@ -164,7 +164,7 @@ services:
             REPLICATION_PRIMARY_PORT: $pgslave3_port
             NODE_ID: 5
             NODE_NAME: node5
-            CLUSTER_NODE_NETWORK_NAME: pgslave4 # (default: hostname of the node)
+            CLUSTER_NODE_NETWORK_NAME: pgslave4.host # (default: hostname of the node)
             #USE_REPLICATION_SLOTS: 0
             NODE_PORT: $pgslave3_port
             port_pgmaster.host: $pgmaster_port
