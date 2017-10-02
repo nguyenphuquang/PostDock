@@ -1,0 +1,5 @@
+for node in $@
+do
+	echo "***********$node"
+	docker-compose -p pg exec $node psql wmc_loyalty postgres -c "select pg_current_xlog_location();"
+done

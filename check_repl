@@ -1,0 +1,5 @@
+for node in $@
+do
+	echo "***********$node"
+	docker exec pg_${node}_1 psql wmc_loyalty postgres -c "select * from pg_stat_replication;"
+done
