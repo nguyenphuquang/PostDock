@@ -1,7 +1,4 @@
 version: '2'
-networks:
-    cluster:
-        driver: overlay
 
 services:
 #if $pgmaster_ip == $ip
@@ -35,9 +32,6 @@ services:
             port_pgslave2.host: $pgslave2_port
             port_pgslave3.host: $pgslave3_port
             port_pgslave4.host: $pgslave4_port
-            
-        ports:
-            - $pgmaster_port:5432
         volumes:
             - pgmaster:/var/lib/postgresql/data
         extra_hosts:
@@ -46,10 +40,9 @@ services:
             - "pgslave2.host:${pgslave2_ip}"
             - "pgslave3.host:${pgslave3_ip}"
             - "pgslave4.host:${pgslave4_ip}"
-        networks:
-            cluster:
-                aliases:
-                    - pgmaster
+        expose:
+            - $pgmaster_port
+        network_mode: host
 #end if
 #if $pgslave1_ip == $ip
     pgslave1:
@@ -71,8 +64,6 @@ services:
             port_pgslave2.host: $pgslave2_port
             port_pgslave3.host: $pgslave3_port
             port_pgslave4.host: $pgslave4_port
-        ports:
-            - $pgslave1_port:5432
         volumes:
             - pgslave1:/var/lib/postgresql/data
         extra_hosts:
@@ -81,10 +72,9 @@ services:
             - "pgslave2.host:${pgslave2_ip}"
             - "pgslave3.host:${pgslave3_ip}"
             - "pgslave4.host:${pgslave4_ip}"
-        networks:
-            cluster:
-                aliases:
-                    - pgslave1
+        expose:
+            - $pgslave1_port
+        network_mode: host
 #end if
 #if $pgslave2_ip == $ip
     pgslave2:
@@ -104,8 +94,6 @@ services:
             port_pgslave2.host: $pgslave2_port
             port_pgslave3.host: $pgslave3_port
             port_pgslave4.host: $pgslave4_port
-        ports:
-            - $pgslave2_port:5432
         volumes:
             - pgslave2:/var/lib/postgresql/data
         extra_hosts:
@@ -114,10 +102,9 @@ services:
             - "pgslave2.host:${pgslave2_ip}"
             - "pgslave3.host:${pgslave3_ip}"
             - "pgslave4.host:${pgslave4_ip}"
-        networks:
-            cluster:
-                aliases:
-                    - pgslave2
+        expose:
+            - $pgslave2_port
+        network_mode: host
 #end if
 #if $pgslave3_ip == $ip
     pgslave3:
@@ -139,8 +126,6 @@ services:
             port_pgslave2.host: $pgslave2_port
             port_pgslave3.host: $pgslave3_port
             port_pgslave4.host: $pgslave4_port
-        ports:
-            - $pgslave3_port:5432
         volumes:
             - pgslave3:/var/lib/postgresql/data
         extra_hosts:
@@ -149,10 +134,9 @@ services:
             - "pgslave2.host:${pgslave2_ip}"
             - "pgslave3.host:${pgslave3_ip}"
             - "pgslave4.host:${pgslave4_ip}"
-        networks:
-            cluster:
-                aliases:
-                    - pgslave3
+        expose:
+            - $pgslave3_port
+        network_mode: host
 #end if
 #if $pgslave4_ip == $ip
     pgslave4:
@@ -172,8 +156,6 @@ services:
             port_pgslave2.host: $pgslave2_port
             port_pgslave3.host: $pgslave3_port
             port_pgslave4.host: $pgslave4_port
-        ports:
-            - $pgslave3_port:5432
         volumes:
             - pgslave4:/var/lib/postgresql/data
         extra_hosts:
@@ -182,10 +164,9 @@ services:
             - "pgslave2.host:${pgslave2_ip}"
             - "pgslave3.host:${pgslave3_ip}"
             - "pgslave4.host:${pgslave4_ip}"
-        networks:
-            cluster:
-                aliases:
-                    - pgslave4
+        expose:
+            - $pgslave4_port
+        network_mode: host
 #end if
 #if $backup_ip == $ip
     backup:
@@ -204,10 +185,7 @@ services:
             BACKUP_SCHEDULE: "*/30 */5 * * *"
         volumes:
             - backup:/var/backups
-        networks:
-            cluster:
-                aliases:
-                    - backup
+        network_mode: host
 #end if
 
 volumes:
