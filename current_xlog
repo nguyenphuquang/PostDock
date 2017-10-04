@@ -1,5 +1,8 @@
+#!/bin/bash
+
 for node in $@
 do
 	echo "***********$node"
-	docker-compose -p pg exec $node psql wmc_loyalty postgres -c "select pg_current_xlog_location();"
+	port=`docker-compose -p pg exec $node env | grep -Po "NODE_PORT=\K\d+"`
+	docker-compose -p pg exec $node psql --port $port wmc_loyalty postgres -c "select pg_current_xlog_location();"
 done
