@@ -1,0 +1,1 @@
+docker-compose -f docker-compose.origin.yml exec $1 /usr/local/bin/cluster/healthcheck/is_major_master.sh
