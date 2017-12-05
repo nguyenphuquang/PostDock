@@ -3,12 +3,12 @@ from Cheetah.Template import Template
 
 context = {
         'ip': socket.gethostbyname(socket.gethostname()),
-        'pgmaster_ip': '192.168.1.32',
-        'pgslave1_ip': '192.168.1.31',
-        'pgslave2_ip': '192.168.1.32',
-        'pgslave3_ip': '192.168.1.30',
-        'pgslave4_ip': '192.168.1.32',
-        'backup_ip': '192.168.1.30',
+        'pgmaster_ip': '192.168.12.32',
+        'pgslave1_ip': '192.168.12.31',
+        'pgslave2_ip': '192.168.12.32',
+        'pgslave3_ip': '192.168.12.30',
+        'pgslave4_ip': '192.168.12.32',
+        'backup_ip': '192.168.12.30',
         'pgmaster_port': 5532,
         'pgslave1_port': 5533,
         'pgslave2_port': 5534,
