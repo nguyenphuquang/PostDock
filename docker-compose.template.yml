@@ -3,6 +3,7 @@ version: '2'
 services:
 #if $pgmaster_ip == $ip
     pgmaster:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
@@ -46,6 +47,7 @@ services:
 #end if
 #if $pgslave1_ip == $ip
     pgslave1:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
@@ -78,6 +80,7 @@ services:
 #end if
 #if $pgslave2_ip == $ip
     pgslave2:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
@@ -108,6 +111,7 @@ services:
 #end if
 #if $pgslave3_ip == $ip
     pgslave3:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
@@ -140,6 +144,7 @@ services:
 #end if
 #if $pgslave4_ip == $ip
     pgslave4:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile

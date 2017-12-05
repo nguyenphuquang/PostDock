@@ -2,6 +2,7 @@ version: '2'
 
 services:
     pgmaster:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
@@ -43,6 +44,7 @@ services:
             - 5532
         network_mode: host
     pgslave2:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
@@ -71,6 +73,7 @@ services:
             - 5534
         network_mode: host
     pgslave4:
+        restart: on-failure
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
