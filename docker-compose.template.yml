@@ -208,6 +208,12 @@ services:
             BACKUP_SCHEDULE: "*/30 */5 * * *"
         volumes:
             - backup:/var/backups
+        extra_hosts:
+            - "pgmaster.host:${pgmaster_ip}"
+            - "pgslave1.host:${pgslave1_ip}"
+            - "pgslave2.host:${pgslave2_ip}"
+            - "pgslave3.host:${pgslave3_ip}"
+            - "pgslave4.host:${pgslave4_ip}"
         network_mode: host
 #end if
 
