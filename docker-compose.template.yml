@@ -7,6 +7,9 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port,pgslave3.host --port $pgslave3_port"
             NODE_ID: 1 # Integer number of node
@@ -51,6 +54,9 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port"
             REPLICATION_PRIMARY_HOST: pgmaster.host
@@ -84,6 +90,9 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_PRIMARY_HOST: pgslave1.host # I want to have cascade Streeming replication
             REPLICATION_PRIMARY_PORT: $pgslave1_port
@@ -115,6 +124,9 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port,pgslave3.host --port $pgslave3_port"
             REPLICATION_PRIMARY_HOST: pgmaster.host
@@ -148,6 +160,9 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_PRIMARY_HOST: pgslave3.host
             REPLICATION_PRIMARY_PORT: $pgslave3_port
@@ -178,6 +193,9 @@ services:
         build:
             context: .
             dockerfile: Barman-2.2.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_USER: replication_user # default is replication_user
             REPLICATION_PASSWORD: replication_pass # default is replication_pass
