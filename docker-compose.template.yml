@@ -3,10 +3,13 @@ version: '2'
 services:
 #if $pgmaster_ip == $ip
     pgmaster:
-        restart: unless-stopped
+        restart: always
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port,pgslave3.host --port $pgslave3_port"
             NODE_ID: 1 # Integer number of node
@@ -47,10 +50,13 @@ services:
 #end if
 #if $pgslave1_ip == $ip
     pgslave1:
-        restart: unless-stopped
+        restart: always
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port"
             REPLICATION_PRIMARY_HOST: pgmaster.host
@@ -80,10 +86,13 @@ services:
 #end if
 #if $pgslave2_ip == $ip
     pgslave2:
-        restart: unless-stopped
+        restart: always
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_PRIMARY_HOST: pgslave1.host # I want to have cascade Streeming replication
             REPLICATION_PRIMARY_PORT: $pgslave1_port
@@ -111,10 +120,13 @@ services:
 #end if
 #if $pgslave3_ip == $ip
     pgslave3:
-        restart: unless-stopped
+        restart: always
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port,pgslave3.host --port $pgslave3_port"
             REPLICATION_PRIMARY_HOST: pgmaster.host
@@ -144,10 +156,13 @@ services:
 #end if
 #if $pgslave4_ip == $ip
     pgslave4:
-        restart: unless-stopped
+        restart: always
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_PRIMARY_HOST: pgslave3.host
             REPLICATION_PRIMARY_PORT: $pgslave3_port
@@ -178,6 +193,9 @@ services:
         build:
             context: .
             dockerfile: Barman-2.2.Dockerfile
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_USER: replication_user # default is replication_user
             REPLICATION_PASSWORD: replication_pass # default is replication_pass
