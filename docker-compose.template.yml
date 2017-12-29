@@ -187,7 +187,7 @@ services:
             POSTGRES_USER: postgres
             POSTGRES_DB: wmc_loyalty
             SSH_ENABLE: 1
-            BACKUP_SCHEDULE: "*/30 */5 * * *"
+            BACKUP_SCHEDULE: "30 1 * * *"
         volumes:
             - backup:/var/backups
         extra_hosts:
