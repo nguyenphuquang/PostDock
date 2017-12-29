@@ -7,9 +7,6 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port,pgslave3.host --port $pgslave3_port"
             NODE_ID: 1 # Integer number of node
@@ -38,6 +35,8 @@ services:
             port_pgslave4.host: $pgslave4_port
         volumes:
             - pgmaster:/var/lib/postgresql/data
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         extra_hosts:
             - "pgmaster.host:${pgmaster_ip}"
             - "pgslave1.host:${pgslave1_ip}"
@@ -54,9 +53,6 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port"
             REPLICATION_PRIMARY_HOST: pgmaster.host
@@ -74,6 +70,8 @@ services:
             port_pgslave4.host: $pgslave4_port
         volumes:
             - pgslave1:/var/lib/postgresql/data
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         extra_hosts:
             - "pgmaster.host:${pgmaster_ip}"
             - "pgslave1.host:${pgslave1_ip}"
@@ -90,9 +88,6 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_PRIMARY_HOST: pgslave1.host # I want to have cascade Streeming replication
             REPLICATION_PRIMARY_PORT: $pgslave1_port
@@ -108,6 +103,8 @@ services:
             port_pgslave4.host: $pgslave4_port
         volumes:
             - pgslave2:/var/lib/postgresql/data
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         extra_hosts:
             - "pgmaster.host:${pgmaster_ip}"
             - "pgslave1.host:${pgslave1_ip}"
@@ -124,9 +121,6 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
         environment:
             PARTNER_NODES: "pgmaster.host --port $pgmaster_port,pgslave1.host --port $pgslave1_port,pgslave3.host --port $pgslave3_port"
             REPLICATION_PRIMARY_HOST: pgmaster.host
@@ -144,6 +138,8 @@ services:
             port_pgslave4.host: $pgslave4_port
         volumes:
             - pgslave3:/var/lib/postgresql/data
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         extra_hosts:
             - "pgmaster.host:${pgmaster_ip}"
             - "pgslave1.host:${pgslave1_ip}"
@@ -160,9 +156,6 @@ services:
         build:
             context: .
             dockerfile: Postgres-latest.Dockerfile
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_PRIMARY_HOST: pgslave3.host
             REPLICATION_PRIMARY_PORT: $pgslave3_port
@@ -178,6 +171,8 @@ services:
             port_pgslave4.host: $pgslave4_port
         volumes:
             - pgslave4:/var/lib/postgresql/data
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         extra_hosts:
             - "pgmaster.host:${pgmaster_ip}"
             - "pgslave1.host:${pgslave1_ip}"
@@ -193,9 +188,6 @@ services:
         build:
             context: .
             dockerfile: Barman-2.2.Dockerfile
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
         environment:
             REPLICATION_USER: replication_user # default is replication_user
             REPLICATION_PASSWORD: replication_pass # default is replication_pass
@@ -208,6 +200,8 @@ services:
             BACKUP_SCHEDULE: "*/30 */5 * * *"
         volumes:
             - backup:/var/backups
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
         extra_hosts:
             - "pgmaster.host:${pgmaster_ip}"
             - "pgslave1.host:${pgslave1_ip}"
